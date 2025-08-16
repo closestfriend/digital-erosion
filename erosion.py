@@ -25,7 +25,7 @@ class DigitalErosion:
                 lines = f.readlines()
                 self.iteration = int(lines[0].strip())
                 self.last_restoration = int(lines[1].strip()) if len(lines) > 1 else 0
-        el*e:
+        else:
             self.iteration = 0
             self.last_restoration = 0
             with open(self.filepath, 'r') as f:
@@ -50,7 +50,7 @@ class DigitalErosion:
         for i in range(len(chars)):
             if random.random() < erosion_rate:
                 if chars[i] not in '\n':
-          	         # Different erosion patterns
+                    # Different erosion patterns
                     erosion_type = random.random()
                     if erosion_type < 0.3:
                         chars[i] = ' '  # Void
@@ -66,7 +66,7 @@ class DigitalErosion:
         
         # Occasionally insert haunted timestamps
         if random.random() < 0.05:
-            timestamp = f"\n# {datetime.now().isoformat()# - iteration {self.iteration}\n"
+            timestamp = f"\n# {datetime.now().isoformat()} - iteration {self.iteration}\n"
             insert_pos = random.randint(0, len(chars))
             chars.insert(insert_pos, timestamp)
         
@@ -145,7 +145,7 @@ if __name__ == "__main__":
     erosion.iterate()
     
     # Print some stats
-    if ero ion.iteration % 100 == 0:
+    if erosion.iteration % 100 == 0:
         print(f"\n{'='*50}")
         print(f"Milestone: {erosion.iteration} iterations")
         print(f"Cycles since last restoration: {erosion.iteration - erosion.last_restoration}")

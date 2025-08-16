@@ -30,14 +30,25 @@ jobs:
           git config user.email "entropy@digital-erosion.art"
       
       - name: Run erosion
-        run: python3 erosion.py
+        run: |
+          # Try to run the erosion script
+          # If it fails (syntax error from corruption), that's part of the art
+          python3 erosion.py || echo "Script failed to execute (syntax error) - this is expected behavior"
       
       - name: Commit changes
         run: |
           git add .
-          # Use the commit message that erosion.py already created
-          # or fallback to a generic message if no changes
-          git diff --staged --quiet || git commit -m "Automated erosion"
+          # Check if there are any changes to commit
+          if ! git diff --staged --quiet; then
+            # If erosion.py ran successfully, it created a commit message
+            # If it failed, we document the failure
+            if [ -f .erosion_state ]; then
+              ITERATION=$(head -1 .erosion_state)
+              git commit -m "iteration $ITERATION: script execution failed (corrupted beyond repair)"
+            else
+              git commit -m "Automated erosion attempt - script too corrupted to run"
+            fi
+          fi
       
       - name: Push changes
         run: git push origin main
