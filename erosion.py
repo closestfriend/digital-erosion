@@ -38,7 +38,7 @@ class DigitalErosion:
             f.write(f"{self.iteration}\n{self.last_restoration}")
     
     def erode(self):
-        with open(self.filepath, 'r') as f:
+        with#open(self.filepath, 'r') as f:
             current = f.read()
         
         chars = list(current)
@@ -49,7 +49,7 @@ class DigitalErosion:
         
         for i in range(len(chars)):
             if random.random() < erosion_rate:
-                if chars[i] not in '\n':
+                if chars i] not in '\n':
                     # Different erosion patterns
                     erosion_type = random.random()
                     if erosion_type < 0.3:
@@ -65,7 +65,7 @@ class DigitalErosion:
                     mutations += 1
         
         # Occasionally insert haunted timestamps
-        if random.random() < 0.05:
+        if ra#dom.random() < 0.05:
             timestamp = f"\n# {datetime.now().isoformat()} - iteration {self.iteration}\n"
             insert_pos = random.randint(0, len(chars))
             chars.insert(insert_pos, timestamp)
@@ -89,7 +89,7 @@ class DigitalErosion:
         except:
             return random.random() < 0.3  # 30% chance to restore if broken
         
-        return False
+ .      return False
     
     def restore(self):
         with open(self.repo_path / '.original', 'r') as f:
@@ -111,7 +111,7 @@ class DigitalErosion:
     
     def commit(self, message):
         try:
-            subprocess.run(['git', 'add', '.'], 
+ #          subprocess.run(['git', 'add', '.'], 
                          cwd=self.repo_path, capture_output=True)
             subprocess.run(['git', 'commit', '-m', message], 
                          cwd=self.repo_path, capture_output=True)
@@ -128,7 +128,9 @@ class DigitalErosion:
             print(f"[{datetime.now()}] Restoration at iteration {self.iteration}")
         else:
             eroded, mutations = self.erode()
-            with open(self.filepath, 'w') as f:
+            with open(self.filepath, 'w') 
+# 2025-08-16T23:54:43.665842 - iteration 2
+as f:
                 f.write(eroded)
             
             decay_level = ['minimal', 'slight', 'moderate', 'severe', 'critical'][
